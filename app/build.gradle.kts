@@ -1,7 +1,11 @@
 plugins {
+    id("com.google.devtools.ksp") version "1.8.10-1.0.9"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.7.20"
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt") // kapt is applied here
 }
+
 
 android {
     namespace = "com.example.littlelemon"
@@ -50,7 +54,24 @@ android {
 }
 
 dependencies {
+    // Room dependencies with kapt
+    implementation("androidx.room:room-runtime:2.6.1")
+   // kapt("androidx.room:room-compiler:2.6.1") // Room annotation processor with kapt
+    annotationProcessor("androidx.room:room-compiler:2.6.1") // Annotation processor
 
+    // Ktor dependencies
+//    implementation(libs.ktor.client.android)
+//    implementation(libs.ktor.client.content.negotiation)
+//    implementation(libs.ktor.serialization.kotlinx.json)
+
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+
+
+    // Other dependencies
+
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -59,6 +80,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.ui.test.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -67,3 +89,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
+
